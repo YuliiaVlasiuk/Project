@@ -4,11 +4,12 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js  hello</Text>
+      <Text>Hello word! i am uasing React!!! try</Text>
       <StatusBar style="auto" />
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -18,3 +19,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
