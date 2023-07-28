@@ -3,26 +3,32 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  Image,
   Platform,
   KeyboardAvoidingView,
   Keyboard,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Dimensions,
+  Pressable,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { useFonts } from "expo-font";
+import Avatar from "../../assets/images/photo.png";
+import AddAvatar from "../../assets/images/add.png";
+import CloseAvatar from "../../assets/images/close.png";
 
 const initialState = {
+  name: "",
   email: "",
   password: "",
 };
 
-export default function LoginScreen() {
+export default function RegistrationScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
-  const [seePass, setSeePass] = useState(true);
   const [activeInput, setActiveInput] = useState("");
+  const [seePass, setSeePass] = useState(true);
   const [dimentions, setDimentions] = useState(
     Dimensions.get("window").width - 16 * 2
   );
@@ -35,7 +41,7 @@ export default function LoginScreen() {
   }, []);
 
   const [fontsLoaded] = useFonts({
-    "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
   });
 
   if (!fontsLoaded) {
@@ -48,15 +54,15 @@ export default function LoginScreen() {
   };
 
   const keyboardHide = () => {
-    setIsShowKeyboard(false);
     Keyboard.dismiss();
+    setIsShowKeyboard(false);
     console.log(state);
     setState(initialState);
   };
 
   return (
     <TouchableWithoutFeedback onPress={closeKeyboard}>
-      <View style={{ ...styles.container, flex: isShowKeyboard ? 0.5 : 0.65 }}>
+      <View style={{ ...styles.container, flex: isShowKeyboard ? 0.6 : 0.8 }}>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
@@ -68,18 +74,39 @@ export default function LoginScreen() {
             }}
           >
             <View style={styles.header}>
+              <Image source={Avatar} style={styles.avatar} />
+              <Pressable style={styles.addImage}>
+                <Image
+                  source={Avatar ? CloseAvatar : AddAvatar}
+                  style={styles.addAvatar}
+                /> 
+              </Pressable>
               <Text
                 style={{
                   fontFamily: "Roboto-Regular",
                   fontSize: 30,
-                  fontWeight: 500,
                   color: "#212121",
                 }}
               >
-                Увійти
+                Реєстрація
               </Text>
             </View>
 
+            <View>
+              <TextInput
+                style={{
+                  ...styles.input,
+                  borderColor: activeInput === "login" ? "#FF6C00" : "#f6f6f6",
+                }}
+                value={state.name}
+                placeholder="Логін"
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, name: value }))
+                }
+                onFocus={() => setActiveInput("login")}
+                placeholderTextColor="#BDBDBD"
+              />
+            </View>
             <View>
               <TextInput
                 style={{
@@ -128,10 +155,10 @@ export default function LoginScreen() {
               onPress={keyboardHide}
               activeOpacity={0.6}
             >
-              <Text style={styles.btnTitle}>Увійти</Text>
+              <Text style={styles.btnTitle}>Зареєструватися</Text>
             </TouchableOpacity>
             <View>
-              <Text style={styles.askLogo}>Немає акаунту? Зареєструватися</Text>
+              <Text style={styles.askLogo}>Вже є акаунт? Увійти</Text>
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -152,8 +179,23 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: "center",
-    marginTop: 32,
-    marginBottom: 10,
+    marginTop: 92,
+    marginBottom: 14,
+  },
+  avatar: {
+    width: 120,
+    height: 120,
+    borderRadius: 16,
+    position: "absolute",
+    top: -154,
+    backgroundColor: "#f6f6f6",
+  },
+  addAvatar: {
+    position: "absolute",
+    width: 25,
+    height: 25,
+    top: -78,
+    right: -72,
   },
   input: {
     borderWidth: 1,
@@ -170,6 +212,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 16,
   },
+
   btn: {
     height: 50,
     borderRadius: 100,
@@ -200,5 +243,16 @@ const styles = StyleSheet.create({
     color: "#1B4371",
     fontSize: 16,
     fontFamily: "Roboto-Regular",
+    marginBottom: 0,
+    paddingBottom: 0,
+  },
+
+  headerTitle: {
+    fontSize: 30,
+    color: "#212121",
+    fontFamily: "Roboto-Regular",
   },
 });
+
+
+
