@@ -89,6 +89,7 @@ export default function RegistrationScreen() {
                 }}
               >
                 Реєстрація
+
               </Text>
             </View>
 

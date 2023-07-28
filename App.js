@@ -10,7 +10,7 @@ export default function App() {
         style={styles.image}
         source={require("./assets/images/PhotoBG.png")}
       >
-        {/* <LoginScreen></LoginScreen> */}
+        {/* <LoginScreen></LoginScreen>  */}
          <RegistrationScreen></RegistrationScreen> 
       </ImageBackground>
       <StatusBar style="auto" />
