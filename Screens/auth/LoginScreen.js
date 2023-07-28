@@ -18,7 +18,7 @@ const initialState = {
   password: "",
 };
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [seePass, setSeePass] = useState(true);
@@ -131,7 +131,7 @@ export default function LoginScreen() {
               <Text style={styles.btnTitle}>Увійти</Text>
             </TouchableOpacity>
             <View>
-              <Text style={styles.askLogo}>Немає акаунту? Зареєструватися</Text>
+              <Text onPress={()=> navigation.navigate('Registration')} style={styles.askLogo}>Немає акаунту? <Text style={{fontSize:15,color: '#0000ff'}}>Зареєструватися</Text></Text>
             </View>
           </View>
         </KeyboardAvoidingView>
